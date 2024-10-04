@@ -1,11 +1,27 @@
 import { useRouter } from "expo-router";
-import { Text, View } from "react-native";
+import { SafeAreaView, Text, TextInput, View } from "react-native";
+// import { search1 } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 
 export default function Index() {
   const router = useRouter()
   return (
-    <View className="flex-1 justify-center items-center bg-white">
-    <Text className="text-blue-500 text-xl" onPress={()=>router.push('/home')}>Hello Tailwind!</Text>
-  </View>
+    <SafeAreaView>
+    <View className='flex-1 items-center mt-10'>
+      <View className="h-[47px] w-[90%] border border-gray-600 justify-between flex-row rounded-full flex items-center pl-2">
+      <View className="flex-row">
+      <AntDesign name="search1" size={24} color="black" />
+      <TextInput placeholder="Enter resturant" className='pl-3 font-semibold w-[230px]'/>
+
+      </View>
+      <View  className="border-l border-gray-600 p-2 ">
+      <Feather name="map-pin" size={24} color="orange" />
+      </View>
+
+      </View>
+    </View>
+
+    </SafeAreaView>
   );
 }
