@@ -5,7 +5,8 @@ import { AntDesign } from '@expo/vector-icons';
 
 const Itemlist = ({props}) => {
   return (
-    <View className="h-[240px] w-[230px] ml-4  rounded-3xl mt-5 shadow-lg bg-gray-200">
+    <View className="h-[240px] w-[230px] ml-6  rounded-3xl mt-5 shadow-lg bg-gray-200">
+      
         <Image
         source={{uri:props.image}}
         className='h-[160px] w-full rounded-tl-3xl rounded-tr-3xl'
