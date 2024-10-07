@@ -7,7 +7,7 @@ import { contextcart } from "./context/contextcart";
 import { Badge } from "react-native-paper";
 
 const Productdetail = () => {
-  const  {Cart,handleRemoveFromCart,handleAddToCart,itemIsAddedToCart} = useContext(contextcart)
+  const  {Cart,handleAddToCart,itemIsAddedToCart} = useContext(contextcart)
   const router = useRouter();
   const [data, setData] = useState([]);
   const params = useLocalSearchParams();
@@ -44,22 +44,8 @@ const Productdetail = () => {
           }}
           onPress={() => router.back()}
         />
-         <TouchableOpacity onPress={()=>router.push('/addtocart')}>
-              <Badge className=" absolute top-[-12px] right-[-5px]">{Cart.length}</Badge>
-              <AntDesign
-                name="shoppingcart"
-                size={60}
-                color="black"
-                style={{
-                  position: "absolute",
-                  top: 100,
-                  left: 15,
-                  zIndex: 1,
-                  backgroundColor: "orange",
-                  borderRadius: 50,
-                }}
-              />
-            </TouchableOpacity>
+     
+      
     
       <View>
         {data.map((item) => (
@@ -74,7 +60,7 @@ const Productdetail = () => {
             <Text className="text-lg mx-4 text-gray-600 mt-2 ">servings: {item.servings} persons</Text>
             <Text className="text-lg mx-4 text-gray-600 mt-2 ">totalcalories: {item.caloriesPerServing}</Text>
 
-            <Text className="text-[17px] mx-4  mt-6  text-gray-600">Ingredients : {item.ingredients[0]}...</Text>
+            <Text className="text-[17px] mx-5 mt-6  text-gray-600">Ingredients : {item.ingredients[0]} {item.ingredients[1]}</Text>
             <TouchableOpacity>
               <Text className="text-[19px] rounded-full bg-orange-500 p-5 mx-4  mt-10 text-center text-gray-600" onPress={()=>handleAddToCart(item)}>{itemIsAddedToCart(item.id) ?  `${itemIsAddedToCart(item.id)} added `    :'Add to cart'}</Text>
             </TouchableOpacity>

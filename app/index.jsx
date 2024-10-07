@@ -1,4 +1,5 @@
 import { Link, useRouter } from "expo-router";
+import Swiper from "react-native-swiper";
 import {
   SafeAreaView,
   ScrollView,
@@ -16,6 +17,7 @@ import Thirdrow from "./thirdrow";
 import { useContext, useEffect, useState } from "react";
 import { Badge } from "react-native-paper";
 import { contextcart } from "./context/contextcart";
+import { Image } from "expo-image";
 
 export default function Index() {
   const { Cart } = useContext(contextcart);
@@ -69,8 +71,10 @@ export default function Index() {
               <Text className=""> New york, NYC</Text>
             </View>
 
-            <TouchableOpacity onPress={()=>router.push('/addtocart')}>
-              <Badge className=" absolute top-[-12px] right-[-5px]">{Cart.length}</Badge>
+            <TouchableOpacity onPress={() => router.push("/addtocart")}>
+              <Badge className=" absolute top-[-12px] right-[-5px]">
+                {Cart.length}
+              </Badge>
               <AntDesign
                 name="shoppingcart"
                 size={30}
@@ -80,6 +84,25 @@ export default function Index() {
             </TouchableOpacity>
           </View>
         </View>
+
+        <Swiper
+          showsButtons={true}
+          className="h-[270px] border-2 mt-2 bg-red-300"
+          autoplay={true}
+        >
+          <Image
+          source={{uri:'https://i.pinimg.com/550x/85/b0/db/85b0dbf498014dafb43e001a6e2471ef.jpg'}}
+          className="flex-1 object-cover"
+          />
+          <Image
+          source={{uri:'https://i.pinimg.com/736x/03/35/14/03351403ae27d274e94f1383358f003a.jpg'}}
+          className="flex-1 object-cover"
+          />
+          <Image
+          source={{uri:'https://images.pexels.com/photos/28787817/pexels-photo-28787817/free-photo-of-assorted-gourmet-brazilian-brigadeiros.jpeg?auto=compress&cs=tinysrgb&w=600'}}
+          className="flex-1 object-cover"
+          />
+        </Swiper>
 
         <View className="flex mt-5 flex-row justify-between items-center mx-5 mb-4">
           <View>
@@ -95,7 +118,7 @@ export default function Index() {
 
           {data.map((e, idx) => (
             <Link href={`/productdetail?id=${e.id}`} className="ml-4">
-              <ItemList props={e} key={idx}  />
+              <ItemList props={e} key={idx} />
             </Link>
           ))}
         </ScrollView>
@@ -124,7 +147,11 @@ export default function Index() {
             <Text className="font-bold text-md text-orange-400">See All</Text>
           </TouchableOpacity>
         </View>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} className="pb-4">
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          className="pb-4"
+        >
           {row2.map((t, idx) => (
             <Link href={`/productdetail?id=${t.id}`} className="ml-4">
               <Thirdrow props={t} key={idx} />
