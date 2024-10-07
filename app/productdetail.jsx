@@ -1,10 +1,10 @@
-import { useContext, useState } from "react";
-import { View, Text, SafeAreaView ,TouchableOpacity, Pressable} from "react-native";
-import React, { useEffect } from "react";
+import { View, Text, SafeAreaView ,TouchableOpacity, Pressable, ActivityIndicator} from "react-native";
+import React, { useEffect ,useState,useContext} from "react";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { Image } from "expo-image";
-import { Ionicons } from "@expo/vector-icons";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { contextcart } from "./context/contextcart";
+import { Badge } from "react-native-paper";
 
 const Productdetail = () => {
   const  {Cart,handleRemoveFromCart,handleAddToCart,itemIsAddedToCart} = useContext(contextcart)
@@ -12,15 +12,21 @@ const Productdetail = () => {
   const [data, setData] = useState([]);
   const params = useLocalSearchParams();
   const productId = params.id;
-  console.log("🚀 ~ Productdetail ~ params:", productId);
+
+ 
 
   useEffect(() => {
+    try {
     fetch(`https://dummyjson.com/recipes/${productId}`)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("🚀 ~ .then ~ data:", data)
-        setData([data]);
-      });
+    .then((res) => res.json())
+    .then((data) => {
+      setData([data]);
+    });
+    } catch (error) {
+      alert("an error occured", error)
+      
+    }
+ 
   }, [productId]);
   return (
     <SafeAreaView>
@@ -38,6 +44,22 @@ const Productdetail = () => {
           }}
           onPress={() => router.back()}
         />
+         <TouchableOpacity onPress={()=>router.push('/addtocart')}>
+              <Badge className=" absolute top-[-12px] right-[-5px]">{Cart.length}</Badge>
+              <AntDesign
+                name="shoppingcart"
+                size={60}
+                color="black"
+                style={{
+                  position: "absolute",
+                  top: 100,
+                  left: 15,
+                  zIndex: 1,
+                  backgroundColor: "orange",
+                  borderRadius: 50,
+                }}
+              />
+            </TouchableOpacity>
     
       <View>
         {data.map((item) => (

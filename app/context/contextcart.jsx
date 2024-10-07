@@ -43,10 +43,14 @@ const ContextcartProvider = ({children}) => {
           setCart([...arr]);
       };
   return (
-    <contextcart.Provider value={{ Cart, setCart,handleAddToCart,handleRemoveFromCart,itemIsAddedToCart}}>
+    <contextcart.Provider value={{ Cart, setCart,handleAddToCart,handleRemoveFromCart,itemIsAddedToCart,decreaseItem}}>
     {children}
   </contextcart.Provider>
   )
 }
 
 export default ContextcartProvider
+// add to cart page
+//  onbourding screens,
+//  search functionality ,
+//  carosel

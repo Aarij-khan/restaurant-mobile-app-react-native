@@ -36,6 +36,7 @@ export default function Index() {
         });
     } catch (error) {
       alert(error.message);
+      setloading(false);
     }
   }, []);
   const router = useRouter();
@@ -68,7 +69,7 @@ export default function Index() {
               <Text className=""> New york, NYC</Text>
             </View>
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>router.push('/addtocart')}>
               <Badge className=" absolute top-[-12px] right-[-5px]">{Cart.length}</Badge>
               <AntDesign
                 name="shoppingcart"
@@ -114,7 +115,7 @@ export default function Index() {
             </Link>
           ))}
         </ScrollView>
-        <View className="flex mt-5 flex-row justify-between items-center mx-5">
+        <View className="flex mt-5 pb-4 flex-row justify-between items-center mx-5">
           <View>
             <Text className="font-bold text-xl">Itailian food</Text>
             <Text className="text-md">local food corner</Text>
@@ -123,7 +124,7 @@ export default function Index() {
             <Text className="font-bold text-md text-orange-400">See All</Text>
           </TouchableOpacity>
         </View>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} className="pb-4">
           {row2.map((t, idx) => (
             <Link href={`/productdetail?id=${t.id}`} className="ml-4">
               <Thirdrow props={t} key={idx} />
