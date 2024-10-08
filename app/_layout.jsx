@@ -9,6 +9,7 @@ export default function RootLayout() {
       <Stack.Screen name="home" />
       <Stack.Screen name="productdetail" options={{headerShown:false,animation:"slide_from_bottom"}} />
       <Stack.Screen name="addtocart" options={{headerShown:false,animation:"slide_from_bottom"}} />
+      <Stack.Screen name="animating" options={{headerShown:false,animation:"slide_from_bottom"}} />
     </Stack>
       </ContextcartProvider>
   );

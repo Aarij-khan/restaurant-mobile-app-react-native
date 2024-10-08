@@ -1,26 +1,52 @@
-import { useEffect, useState } from "react";
-import { View, Text, ScrollView, TouchableOpacity } from "react-native";
-import React, { useContext } from "react";
+import { View, Text, ScrollView, TouchableOpacity,ActivityIndicator } from "react-native";
+import React, { useContext ,useEffect, useState} from "react";
 import { Image } from "expo-image";
 import { contextcart } from "./context/contextcart";
 import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import Animated, { FadeIn, FadeInDown} from "react-native-reanimated";
+import Animated, { FadeInDown } from "react-native-reanimated";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "./firebase.config/firebase";
 
 const Addtocart = () => {
+  const [Loading, setLoading] = useState(false);
   const router = useRouter();
-  const {
-    Cart,
-    handleRemoveFromCart,
-    handleAddToCart,
-    itemIsAddedToCart,
-    decreaseItem,
-  } = useContext(contextcart);
+  const { Cart, handleRemoveFromCart, handleAddToCart, decreaseItem } =
+    useContext(contextcart);
   const total = Cart.reduce(
     (acc, item) => acc + item.prepTimeMinutes * item.quantity,
     0
   );
+
+ 
+
+
+  const handlesend = async () => {
+    if (Cart.length > 0) {
+
+      try {
+        setLoading(true);
+        const orderData = {
+          total: total,
+          cartItems: Cart.map(item => ({
+            image: item.image,  
+            quantity: item.quantity,
+            price: item.prepTimeMinutes,
+            name: item.name, 
+          })),
+        };
+        const docRef = await addDoc(collection(db, "order"), orderData);
+        router.push("animating");
+        setLoading(false);
+        console.log("data gaya ", docRef);
+      } catch (e) {
+        console.error("Error adding document: ", e);
+        setLoading(false);
+      }
+    } 
+  };
+
   useEffect(() => {
     if (Cart == "") {
       alert("Cart is empty");
@@ -111,11 +137,11 @@ const Addtocart = () => {
             </Animated.View>
           ))}
       </ScrollView>
-      <TouchableOpacity>
-        <View className="rounded-full bg-orange-500 mx-3 py-4 mb-2 px-4">
+      <TouchableOpacity onPress={handlesend}>
+        <View className="rounded-full bg-orange-500 mx-3 py-5 mb-2 px-4">
           <View className="flex-row flex justify-between">
             <Text className="text-xl font-bold">Total: {total}$</Text>
-            <Text className="text-xl font-bold">Checkout</Text>
+            <Text className="text-xl font-bold">{Loading ? <ActivityIndicator size={50} />:'Checkout'}</Text>
           </View>
         </View>
       </TouchableOpacity>

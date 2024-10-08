@@ -8,7 +8,6 @@ const ContextcartProvider = ({children}) => {
     console.log("🚀 ~ ContextcartProvider ~ Cart:", Cart)
 
     const handleAddToCart = (item) => {
-        console.log("🚀 ~ handleAddToCart ~ item:", item)
         let arr = Cart;
         let ItemIndex = arr.findIndex((i)=>i.id===item.id)
         if (ItemIndex == -1) {

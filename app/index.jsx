@@ -20,11 +20,13 @@ import { contextcart } from "./context/contextcart";
 import { Image } from "expo-image";
 
 export default function Index() {
+  // const [input, setInput] = useState("");
   const { Cart } = useContext(contextcart);
   const [data, setData] = useState([]);
   const [row, setRow] = useState([]);
   const [row2, setRow2] = useState([]);
   const [loading, setloading] = useState(false);
+  // const [orginalData, setorginalData] = useState([]);
   useEffect(() => {
     try {
       setloading(true);
@@ -34,6 +36,7 @@ export default function Index() {
           setData(data.recipes);
           setRow(data.recipes.slice(8));
           setRow2(data.recipes.slice(15));
+          // setorginalData(data.recipes);
           setloading(false);
         });
     } catch (error) {
@@ -48,6 +51,16 @@ export default function Index() {
       <ActivityIndicator size={70} color={"orange"} className="mt-[380px]" />
     );
   }
+  // const handleInput = (text) => {
+  //   setInput(text.toLowerCase());
+  //   const filteredData = orginalData.filter((item) =>{
+  //     return item.name.toLowerCase().includes(input)
+  //   })
+    
+  //   setData(filteredData)
+    
+  // };
+
 
   return (
     <SafeAreaView className="flex-1 justify-center items-center ">
@@ -59,6 +72,8 @@ export default function Index() {
               <TextInput
                 placeholder="Enter restaurant"
                 className="w-[125px] ml-2 "
+                // onChangeText={(e)=>handleInput(e)}
+                // value={input}
               />
             </View>
             <View className="border-l border-gray-600   flex-row items-center pr-3">
