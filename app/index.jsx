@@ -22,6 +22,7 @@ import { Image } from "expo-image";
 export default function Index() {
   const { Cart } = useContext(contextcart);
   const [data, setData] = useState([]);
+  const [result, setResult] = useState(false);
   const [row, setRow] = useState([]);
   const [row2, setRow2] = useState([]);
   const [loading, setloading] = useState(false);
@@ -54,8 +55,14 @@ export default function Index() {
     const filteredData = orginalData.filter((item) =>{
       return item.name.toLowerCase().includes(text.toLowerCase())
     })
-    
     setData(filteredData)
+    if (filteredData == '') {
+      setResult(true)
+      
+    }else{
+      setResult(false)
+    }
+    
     
   };
 
@@ -128,12 +135,13 @@ export default function Index() {
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {/* <ItemList/> */}
-
-          {data.map((e, idx) => (
+          {result ? <Text className='ml-[100px] text-2xl text-rose-500'>No item found</Text>:
+          data.map((e, idx) => (
             <Link href={`/productdetail?id=${e.id}`} className="ml-4">
               <ItemList props={e} key={idx} />
             </Link>
-          ))}
+          ))
+        }
         </ScrollView>
         <View className="flex mt-5 flex-row justify-between items-center mx-5 pb-5">
           <View>

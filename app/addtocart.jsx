@@ -8,9 +8,11 @@ import { useRouter } from "expo-router";
 import Animated, { FadeInDown } from "react-native-reanimated";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "./firebase.config/firebase";
+import { useToast } from "react-native-toast-notifications";
 
 const Addtocart = () => {
   const { Cart, handleRemoveFromCart, handleAddToCart, decreaseItem } =useContext(contextcart);
+  const toast = useToast();
   const [Loading, setLoading] = useState(false);
   const router = useRouter();
   const total = Cart.reduce(
@@ -39,13 +41,15 @@ const Addtocart = () => {
         console.error("Error adding document: ", e);
         setLoading(false);
       }
-    } 
+    } else{
+      toast.show("Cart is empty", {type:'warning', placement:'top', duration:3000, animationType:'zoom-in'});
+    }
   };
  
 
   useEffect(() => {
     if (Cart == "") {
-      alert("Cart is empty");
+      toast.show("Cart is empty",{type:'warning',placement:'center',duration:3000,animationType:'zoom-in'});
     }
   }, []);
   return (
