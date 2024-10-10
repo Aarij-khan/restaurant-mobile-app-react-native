@@ -53,14 +53,14 @@ const Productdetail = () => {
           
           <View key={item.id}>
             <Image source={{ uri: item.image }} className="h-[300px] w-full" />
-            <View className="rounded-t-3xl bg-gray-300  h-[62%] flex justify-start ">
+            <View className="rounded-t-3xl bg-gray-50  h-[62%] flex justify-start ">
             <Text className="text-2xl mx-4 text-center mt-4 font-semibold">{item.name}</Text>
             <Text className="text-lg mx-4 text-center mt-2 font-semibold">price : {item.prepTimeMinutes}$</Text>
-            <Text className="text-lg mx-4 text-gray-600 mt-4 ">cuisine : {item.cuisine}</Text>
-            <Text className="text-lg mx-4 text-gray-600 mt-2 ">servings: {item.servings} persons</Text>
-            <Text className="text-lg mx-4 text-gray-600 mt-2 ">totalcalories: {item.caloriesPerServing}</Text>
+            <Text className="text-lg mx-6 text-gray-900 mt-4 ">cuisine : {item.cuisine}</Text>
+            <Text className="text-lg mx-6 text-gray-900 mt-2 ">servings: {item.servings} persons</Text>
+            <Text className="text-lg mx-6 text-gray-900 mt-2 ">totalcalories: {item.caloriesPerServing}</Text>
 
-            <Text className="text-[17px] mx-5 mt-6  text-gray-600">Ingredients : {item.ingredients[0]} {item.ingredients[1]}</Text>
+            <Text className="text-[17px] w-[300] h-[130px] mx-auto text-center mt-6  text-gray-600">Ingredients : {item.ingredients} </Text>
             <TouchableOpacity>
               <Text className="text-[19px] rounded-full bg-orange-500 p-5 mx-4  mt-10 text-center text-gray-600" onPress={()=>handleAddToCart(item)}>{itemIsAddedToCart(item.id) ?  `${itemIsAddedToCart(item.id)} added `    :'Add to cart'}</Text>
             </TouchableOpacity>

@@ -10,21 +10,16 @@ import { collection, addDoc } from "firebase/firestore";
 import { db } from "./firebase.config/firebase";
 
 const Addtocart = () => {
+  const { Cart, handleRemoveFromCart, handleAddToCart, decreaseItem } =useContext(contextcart);
   const [Loading, setLoading] = useState(false);
   const router = useRouter();
-  const { Cart, handleRemoveFromCart, handleAddToCart, decreaseItem } =
-    useContext(contextcart);
   const total = Cart.reduce(
     (acc, item) => acc + item.prepTimeMinutes * item.quantity,
     0
   );
-
- 
-
-
-  const handlesend = async () => {
+  
+    const handlesend = async () => {
     if (Cart.length > 0) {
-
       try {
         setLoading(true);
         const orderData = {
@@ -46,6 +41,7 @@ const Addtocart = () => {
       }
     } 
   };
+ 
 
   useEffect(() => {
     if (Cart == "") {
@@ -139,10 +135,14 @@ const Addtocart = () => {
       </ScrollView>
       <TouchableOpacity onPress={handlesend}>
         <View className="rounded-full bg-orange-500 mx-3 py-5 mb-2 px-4">
-          <View className="flex-row flex justify-between">
+          
+          {Loading ?
+           <ActivityIndicator size={33} /> :
+           <View className="flex-row flex justify-between">
             <Text className="text-xl font-bold">Total: {total}$</Text>
-            <Text className="text-xl font-bold">{Loading ? <ActivityIndicator size={50} />:'Checkout'}</Text>
+            <Text className="text-xl font-bold">Checkout</Text>
           </View>
+            }
         </View>
       </TouchableOpacity>
     </View>
