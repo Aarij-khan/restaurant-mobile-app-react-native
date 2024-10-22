@@ -20,28 +20,11 @@ const Addtocart = () => {
     0
   );
   
-    const handlesend = async () => {
+  const handleOrder = () => {
     if (Cart.length > 0) {
-      try {
-        setLoading(true);
-        const orderData = {
-          total: total,
-          cartItems: Cart.map(item => ({
-            image: item.image,  
-            quantity: item.quantity,
-            price: item.prepTimeMinutes,
-            name: item.name, 
-          })),
-        };
-        const docRef = await addDoc(collection(db, "order"), orderData);
-        router.push("animating");
-        setLoading(false);
-        console.log("data gaya ", docRef);
-      } catch (e) {
-        console.error("Error adding document: ", e);
-        setLoading(false);
-      }
-    } else{
+      router.push('/users')
+      
+    }else{
       toast.show("Cart is empty", {type:'warning', placement:'top', duration:3000, animationType:'zoom-in'});
     }
   };
@@ -137,7 +120,7 @@ const Addtocart = () => {
             </Animated.View>
           ))}
       </ScrollView>
-      <TouchableOpacity onPress={handlesend}>
+      <TouchableOpacity onPress={handleOrder}>
         <View className="rounded-full bg-orange-500 mx-3 py-5 mb-2 px-4">
           
           {Loading ?
